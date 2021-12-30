@@ -102,6 +102,7 @@ function draw() {
     ctx.fillRect(snake[i].x, snake[i].y, box, box); //  method of the Canvas 2D API draws a rectangle
     ctx.strokeStyle = "red";
     ctx.strokeRect(snake[i].x, snake[i].y, box, box);
+    console.log(snake); //
   }
 
   ctx.drawImage(foodImg, food.x, food.y); // drawing food in regards to random x,y coord.
