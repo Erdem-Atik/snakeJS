@@ -14,8 +14,8 @@ const box = 32;
 const ground = new Image(); // image constructor creates and returns a new HTMLImagelement
 ground.src = "img/ground.png"; //src property indicates source
 
-const foodImg = new Image();
-foodImg.src = "img/food.png";
+const foodApple = new Image();
+foodApple.src = "img/food.png";
 
 // load audio files
 
@@ -45,10 +45,16 @@ snake[0] = {
 
 // create the food
 
+let randomXGenerator = function () {
+  return Math.floor(Math.random() * 17 + 1);
+};
+
+let randomYGenerator = () => Math.floor(Math.random() * 15 + 3);
+
 let food = {
   // creates random coordinates to food
-  x: Math.floor(Math.random() * 17 + 1) * box,
-  y: Math.floor(Math.random() * 15 + 3) * box,
+  x: randomXGenerator() * box,
+  y: randomYGenerator() * box,
 };
 
 // create the score var
@@ -99,13 +105,13 @@ function draw() {
 
   for (let i = 0; i < snake.length; i++) {
     ctx.fillStyle = i == 0 ? "green" : "white"; // if it is zero it creates snake'head, else snake'body
+
     ctx.fillRect(snake[i].x, snake[i].y, box, box); //  method of the Canvas 2D API draws a rectangle
     ctx.strokeStyle = "red";
     ctx.strokeRect(snake[i].x, snake[i].y, box, box);
-    console.log(snake); //
   }
 
-  ctx.drawImage(foodImg, food.x, food.y); // drawing food in regards to random x,y coord.
+  ctx.drawImage(foodApple, food.x, food.y); // drawing food in regards to random x,y coord.
 
   // old head position
   let snakeX = snake[0].x;
@@ -120,11 +126,11 @@ function draw() {
   // if the snake eats the food
   if (snakeX == food.x && snakeY == food.y) {
     score++;
-    eat.play();
+    eat.play(); // to play eating sound
 
     food = {
-      x: Math.floor(Math.random() * 17 + 1) * box,
-      y: Math.floor(Math.random() * 15 + 3) * box,
+      x: randomXGenerator() * box,
+      y: randomYGenerator() * box,
     };
     // we don't remove the tail
   } else {
