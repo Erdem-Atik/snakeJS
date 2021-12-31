@@ -33,28 +33,27 @@ right.src = "audio/right.mp3";
 left.src = "audio/left.mp3";
 down.src = "audio/down.mp3";
 
+// create random coordinat
+
+const randomCoordGenerator = (axesL) =>
+  Math.floor(Math.random() * axesL + (axesL === 17 ? 1 : 3));
+
 // create the snake
 
 let snake = []; // snake is an array
 
 snake[0] = {
   // indicates snake's starting point
-  x: 9 * box,
-  y: 10 * box,
+  x: randomCoordGenerator(17) * box,
+  y: randomCoordGenerator(15) * box,
 };
 
 // create the food
 
-let randomXGenerator = function () {
-  return Math.floor(Math.random() * 17 + 1);
-};
-
-let randomYGenerator = () => Math.floor(Math.random() * 15 + 3);
-
 let food = {
   // creates random coordinates to food
-  x: randomXGenerator() * box,
-  y: randomYGenerator() * box,
+  x: randomCoordGenerator(17) * box,
+  y: randomCoordGenerator(15) * box,
 };
 
 // create the score var
@@ -129,8 +128,8 @@ function draw() {
     eat.play(); // to play eating sound
 
     food = {
-      x: randomXGenerator() * box,
-      y: randomYGenerator() * box,
+      x: randomCoordGenerator(17) * box,
+      y: randomCoordGenerator(15) * box,
     };
     // we don't remove the tail
   } else {
@@ -156,6 +155,7 @@ function draw() {
   ) {
     clearInterval(game);
     dead.play();
+    alert("Game Over :( \n Please press F5 to play again!");
   }
 
   snake.unshift(newHead);
